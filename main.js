@@ -14,6 +14,8 @@ function draw_test()
     var d = Math.abs((t.angle / 4) % (Math.PI) - Math.PI / 2);
     var e = Math.abs((t.angle / 7) % (Math.PI) - Math.PI / 2);
     t.translate([ax.analog[0] * 4, ax.analog[1] * 4], true);
+    if(t.scaling[0] > 1)
+        t.scale([0.9, 0.9], true);
     // t.scale([(b * 3) + 1, (b * 3) + 1], false);
     // t.translate([Math.cos(t.angle / 5) * 450 + 500, Math.sin(t.angle / 3) * 200 + 350]);
     render_quad(c, t.mat, [b, d, e, 1], test_tex, true);
@@ -33,22 +35,23 @@ function start()
     t.translate([400, 300]);
 
     test_tex = new Texture("textures", "test.png");
-    var a = new AudioPlayer("audio", "test.ogg");
-    // a.onready = function() { a.play(); }
-    main_loop_begin(draw_test);
+    // var a = new AudioPlayer("audio", "FINISH_HIM.ogg");
+    var aplayer = new AudioPlayer("audio", "YES.ogg");
 
-    // var i = new ActionInput();
-    // i.onactive = function() { t.rotate(0, false); };
-    // i.bindKey(39);
-    // var j = new ActionInput();
-    // j.onactive = function() { t.rotate(700, false); };
-    // j.bindKey(37);
+    var act = new ActionInput();
+    act.onactive = function() { t.scale([10, 10], false); };
+    act.bindKey(90);
+    var act2 = new ActionInput();
+    act2.onactive = function() { aplayer.play(); };
+    act2.bindKey(88);
 
     ax = new AxisInput();
     ax.bindKey(39, true, true);
     ax.bindKey(37, true, false);
     ax.bindKey(40, false, true);
     ax.bindKey(38, false, false);
+
+    main_loop_begin(draw_test);
 
     // load_resource_to_buffer(null, "test.txt", function() { alert(this.responseText); });
 } 

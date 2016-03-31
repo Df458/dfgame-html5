@@ -45,8 +45,6 @@ class AudioPlayer
         this.loop    = false;
         this.playing = false;
         this.volume  = 1.0;
-        this.source  = actx.createBufferSource();
-        this.source.connect(actx.destination);
 
         if(arguments.length == 1 && typeof arguments[0] === "AudioData") {
             this.data = arguments[0];
@@ -65,8 +63,6 @@ class AudioPlayer
     prepare()
     {
         this.ready = true;
-
-        this.source.buffer = this.data.buffer;
         
         if(typeof this.onready === "function")
             this.onready();
@@ -74,7 +70,15 @@ class AudioPlayer
 
     play()
     {
+        if(!this.ready)
+            return;
+
         this.playing = true;
+
+        this.source  = actx.createBufferSource();
+        this.source.connect(actx.destination);
+        this.source.buffer = this.data.buffer;
+        this.source.connect(actx.destination);
         this.source.start(0);
     }
 
