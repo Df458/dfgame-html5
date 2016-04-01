@@ -1,13 +1,55 @@
 class Animation
 {
-    // TODO: Implement this
+    constructor()
+    {
+        this.orients    = 0;
+        this.dimensions = [0, 0];
+        this.origin     = [0, 0];
+        this.length     = 0;
+        this.delay      = 0;
+        this.autoplay   = false;
+        this.autoloop   = false;
+        this.speed_mod  = 1;
+
+        this.atlas_box = [0, 0, 0, 0];
+        this.handle = "";
+    }
 }
 
 class Spriteset
 {
-    constructor(path, name)
+    constructor()
     {
-        // TODO: Implement this
+        this.atlas           = new Texture();
+        this.animations      = [];
+
+        if(arguments.length >= 2)
+            load_resource_to_buffer(arguments[0], arguments[1], function(request, user) { user.prepare(request.response) }, this, "document");
+    }
+
+    prepare(doc)
+    {
+        var root = null;
+        for(var i = 0; i < doc.children.length; ++i) {
+            if(doc.children[i].localName == "spriteset") {
+                root = doc.children[i];
+                break;
+            }
+        }
+        if(!root)
+            return;
+
+        for(var i = 0; i < doc.children.length; ++i) {
+            // TODO: Animation setup here
+        }
+
+        if(this.animations.length == 0)
+            return;
+
+        for(var i = 0; i < this.animations.length; ++i) {
+            // TODO: Arrange animations
+        }
+        // TODO: Generate the texture here
     }
 }
 
@@ -30,6 +72,10 @@ class Sprite
     update()
     {
         // TODO: Implement this
+    }
+
+    draw()
+    {
     }
 
     play()

@@ -67,14 +67,6 @@ class AxisInput extends Input
             return;
         }
         super.bindKey(key);
-        if(arguments[1])
-            console.log("X");
-        else
-            console.log("Y");
-        if(arguments[2])
-            console.log("Positive");
-        else
-            console.log("Negative");
 
         this.bindings.push([arguments[1], arguments[2]]);
         this.active_list.push(false);

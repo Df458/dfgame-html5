@@ -51,6 +51,8 @@ function start()
     ax.bindKey(40, false, true);
     ax.bindKey(38, false, false);
 
+    var spr = new Sprite("sprites", "test.spr");
+
     main_loop_begin(draw_test);
 
     // load_resource_to_buffer(null, "test.txt", function() { alert(this.responseText); });

@@ -11,6 +11,9 @@ class Texture
         this.img.owner = this;
         this.onready = function() { };
 
+        if(arguments.length == 0)
+            return;
+
         this.img.onload = function() { this.owner.prepare(); };
         this.img.src = construct_extended_resource_path(path, name);
     }
