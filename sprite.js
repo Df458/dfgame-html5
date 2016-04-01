@@ -5,14 +5,14 @@ class Animation
         this.orients    = 0;
         this.dimensions = [0, 0];
         this.origin     = [0, 0];
-        this.length     = 0;
-        this.delay      = 0;
+        this.length     = 1;
+        this.delay      = 1;
         this.autoplay   = false;
         this.autoloop   = false;
         this.speed_mod  = 1;
 
         this.atlas_box = [0, 0, 0, 0];
-        this.handle = "";
+        this.handle = "idle";
     }
 }
 
@@ -39,8 +39,39 @@ class Spriteset
         if(!root)
             return;
 
-        for(var i = 0; i < doc.children.length; ++i) {
-            // TODO: Animation setup here
+        for(var i = 0; i < root.children.length; ++i) {
+            if(root.children[i].name == "animation") {
+                var index = this.animations.length;
+                this.animations.push(new Animation);
+
+                if(root.children[i].hasAttribute("name")) {
+                    this.animations[index].name = root.children[i].getAttribute("name");
+                }
+                if(root.children[i].hasAttribute("length")) {
+                    this.animations[index].length = root.children[i].getAttribute("length");
+                }
+                if(root.children[i].hasAttribute("speed")) {
+                    this.animations[index].delay = root.children[i].getAttribute("speed");
+                }
+                if(root.children[i].hasAttribute("orients")) {
+                    this.animations[index].orients = root.children[i].getAttribute("orients");
+                }
+                if(root.children[i].hasAttribute("loop")) {
+                    this.animations[index].autoloop = root.children[i].getAttribute("loop") == "true";
+                }
+                if(root.children[i].hasAttribute("play")) {
+                    this.animations[index].autoplay = root.children[i].getAttribute("play") == "true";
+                }
+                if(root.children[i].hasAttribute("origin_x")) {
+                    this.animations[index].origin[0] = root.children[i].getAttribute("origin_x");
+                }
+                if(root.children[i].hasAttribute("origin_y")) {
+                    this.animations[index].origin[1] = root.children[i].getAttribute("origin_y");
+                }
+                if(root.children[i].hasAttribute("file")) {
+                    // TODO: Figure out file loading
+                }
+            }
         }
 
         if(this.animations.length == 0)

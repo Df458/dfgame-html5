@@ -53,7 +53,7 @@ function start()
 
     var spr = new Sprite("sprites", "test.spr");
 
-    main_loop_begin(draw_test);
+    // main_loop_begin(draw_test);
 
     // load_resource_to_buffer(null, "test.txt", function() { alert(this.responseText); });
 } 
