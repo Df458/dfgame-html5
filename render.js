@@ -30,7 +30,7 @@ var quad_subtex_vs =
     +"varying highp vec2 v_uv;\n"
     +"void main(void) {\n"
     +   "gl_Position = camera * transform * vec4(i_pos, 1.0);\n"
-    +"v_uv  = i_uv * uv_offset.zw + uv_offset.xy;\n"
+    +   "v_uv  = i_uv * uv_offset.zw + uv_offset.xy;\n"
     +"}";
 var quad_untex_vs =
     "attribute vec3 i_pos;\n"
@@ -158,7 +158,6 @@ function cleanup_renderer()
 {
 }
 
-// TODO: Make this handle textured and untextured quads depending on the params
 function render_quad(camera, transform)
 {
     var prg = quad_untex_program;
@@ -186,7 +185,7 @@ function render_quad(camera, transform)
 
         if(arguments[5]) {
             var sc = new Matrix();
-            sc.scale(arguments[3].width, arguments[3].height, false);
+            sc.scale(arguments[3].width * arguments[4][2], arguments[3].height * arguments[4][3], false);
             transform.mul(sc);
         }
     } else if(arguments.length >= 5) {

@@ -1,21 +1,23 @@
 class Texture
 {
-    constructor(path, name)
+    constructor()
     {
         this.ready = false;
         this.tex = null;
-        this.img = new Image();
         this.width = 0;
         this.height = 0;
-
-        this.img.owner = this;
         this.onready = function() { };
+
 
         if(arguments.length == 0)
             return;
 
-        this.img.onload = function() { this.owner.prepare(); };
-        this.img.src = construct_extended_resource_path(path, name);
+        if(arguments.length == 2) {
+            this.img = new Image();
+            this.img.owner = this;
+            this.img.onload = function() { this.owner.prepare(); };
+            this.img.src = construct_extended_resource_path(arguments[0], arguments[1]);
+        }
     }
 
     prepare() {

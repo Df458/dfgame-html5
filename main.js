@@ -2,6 +2,7 @@ var c;
 var t;
 var test_tex;
 var ax;
+var spr;
 
 function draw_test()
 {
@@ -18,7 +19,9 @@ function draw_test()
         t.scale([0.9, 0.9], true);
     // t.scale([(b * 3) + 1, (b * 3) + 1], false);
     // t.translate([Math.cos(t.angle / 5) * 450 + 500, Math.sin(t.angle / 3) * 200 + 350]);
-    render_quad(c, t.mat, [b, d, e, 1], test_tex, true);
+    // render_quad(c, t.mat, [b, d, e, 1], test_tex, true);
+    spr.update();
+    spr.draw(c, t.mat, [b, d, e, 1], true);
 }
 
 function start()
@@ -51,9 +54,10 @@ function start()
     ax.bindKey(40, false, true);
     ax.bindKey(38, false, false);
 
-    var spr = new Sprite("sprites", "test.spr");
+    spr = new Sprite("sprites", "test.spr");
+    spr.set.onready = function() { spr.setAnimation("walk"); };
 
-    // main_loop_begin(draw_test);
+    main_loop_begin(draw_test);
 
     // load_resource_to_buffer(null, "test.txt", function() { alert(this.responseText); });
 } 
