@@ -55,7 +55,7 @@ function start()
     ax.bindKey(38, false, false);
 
     spr = new Sprite("sprites", "test.spr");
-    spr.set.onready = function() { spr.setAnimation("walk"); };
+    spr.set.onready = function() { spr.setAnimation("default"); };
 
     main_loop_begin(draw_test);
 

@@ -24,7 +24,8 @@ class Animation
         c[3] = this.atlas_box[3];
         c[0] += frame * this.dimensions[0];
         c[2] /= this.length;
-        c[3] /= this.orients;
+        if(this.orients != 0)
+            c[3] /= this.orients;
 
         c[0] /= this.owner.tex.width;
         c[1] /= this.owner.tex.height;
