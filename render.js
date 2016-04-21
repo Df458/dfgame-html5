@@ -161,6 +161,7 @@ function cleanup_renderer()
 function render_quad(camera, transform)
 {
     var prg = quad_untex_program;
+    var world = new Matrix(transform);
 
     var color = [1, 1, 1, 1];
     if(arguments.length >= 6) {
@@ -186,7 +187,7 @@ function render_quad(camera, transform)
         if(arguments[5]) {
             var sc = new Matrix();
             sc.scale(arguments[3].width * arguments[4][2], arguments[3].height * arguments[4][3], false);
-            transform.mul(sc);
+            world.mul(sc);
         }
     } else if(arguments.length >= 5) {
         if(!arguments[3].ready)
@@ -208,7 +209,7 @@ function render_quad(camera, transform)
         if(arguments[4]) {
             var sc = new Matrix();
             sc.scale(arguments[3].width, arguments[3].height, false);
-            transform.mul(sc);
+            world.mul(sc);
         }
     } else if(arguments.length >= 3) {
         color = arguments[2];
@@ -222,7 +223,7 @@ function render_quad(camera, transform)
     ctx.vertexAttribPointer(vta, 3, ctx.FLOAT, false, FLOAT_SIZE * 5, 0);
 
     var tsu = ctx.getUniformLocation(prg, "transform");
-    ctx.uniformMatrix4fv(tsu, false, transform.data);
+    ctx.uniformMatrix4fv(tsu, false, world.data);
 
     var cmu = ctx.getUniformLocation(prg, "camera");
     ctx.uniformMatrix4fv(cmu, false, camera.data);

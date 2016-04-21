@@ -3,7 +3,10 @@ class Matrix
 {
     constructor()
     {
-        this.ident();
+        if(arguments.length != 0)
+            this.data = arguments[0].data.slice();
+        else
+            this.ident();
     }
 
     ident()
